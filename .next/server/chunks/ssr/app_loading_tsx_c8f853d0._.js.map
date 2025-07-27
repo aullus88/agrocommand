@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/aulusoliveira/Apps/AgroCommand/App/app/loading.tsx"],"sourcesContent":["export default function RootLoading() {\n  return (\n    <div className=\"min-h-screen bg-background flex items-center justify-center\">\n      <div className=\"text-center space-y-4\">\n        {/* Loading Spinner */}\n        <div className=\"w-8 h-8 border-4 border-primary/20 border-l-primary rounded-full animate-spin mx-auto\" />\n        \n        {/* Loading Text */}\n        <div className=\"space-y-2\">\n          <div className=\"h-5 bg-muted rounded w-20 mx-auto animate-pulse\" />\n          <div className=\"h-3 bg-muted/60 rounded w-32 mx-auto animate-pulse\" />\n        </div>\n      </div>\n    </div>\n  )\n}"],"names":[],"mappings":";;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;;8BAEb,8OAAC;oBAAI,WAAU;;;;;;8BAGf,8OAAC;oBAAI,WAAU;;sCACb,8OAAC;4BAAI,WAAU;;;;;;sCACf,8OAAC;4BAAI,WAAU;;;;;;;;;;;;;;;;;;;;;;;AAKzB","debugId":null}}]
-}
