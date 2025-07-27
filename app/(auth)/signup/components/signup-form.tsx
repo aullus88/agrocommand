@@ -10,6 +10,9 @@ import { GoogleOneTap } from '@/components/google-one-tap'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export function SignUpForm() {
   const [email, setEmail] = useState('')
@@ -19,6 +22,7 @@ export function SignUpForm() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const { signUpWithEmail, signInWithGoogle } = useAuth()
+  const router = useRouter()
 
   const handleEmailSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,9 +30,9 @@ export function SignUpForm() {
     setError(null)
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match')
-      toast.error('Passwords do not match', {
-        description: 'Please make sure both password fields match.'
+      setError('As senhas não coincidem')
+      toast.error('As senhas não coincidem', {
+        description: 'Certifique-se de que ambos os campos de senha coincidem.'
       })
       setLoading(false)
       return
@@ -38,13 +42,13 @@ export function SignUpForm() {
     
     if (error) {
       setError(error.message)
-      toast.error('Sign up failed', {
+      toast.error('Falha no cadastro', {
         description: error.message
       })
     } else {
       setSuccess(true)
-      toast.success('Account created!', {
-        description: 'Please check your email to verify your account.'
+      toast.success('Conta criada!', {
+        description: 'Verifique seu email para confirmar sua conta.'
       })
     }
     
@@ -59,13 +63,14 @@ export function SignUpForm() {
     
     if (error) {
       setError(error.message)
-      toast.error('Google sign up failed', {
+      toast.error('Falha no cadastro com Google', {
         description: error.message
       })
     } else {
-      toast.success('Welcome!', {
-        description: 'Account created with Google successfully.'
+      toast.success('Bem-vindo!', {
+        description: 'Conta criada com Google com sucesso.'
       })
+      router.push('/dashboard')
     }
     
     setLoading(false)
@@ -75,9 +80,9 @@ export function SignUpForm() {
     return (
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
-          <CardTitle>Check your email</CardTitle>
+          <CardTitle>Verifique seu email</CardTitle>
           <CardDescription>
-            We've sent you a confirmation link to complete your registration.
+            Enviamos um link de confirmação para completar seu cadastro.
           </CardDescription>
         </CardHeader>
       </Card>
@@ -88,13 +93,23 @@ export function SignUpForm() {
     <>
       <GoogleOneTap
         onSuccess={() => setError(null)}
-        onError={(err) => setError(err.message || 'Google sign-up failed')}
+        onError={(err) => setError(err.message || 'Falha no cadastro com Google')}
       />
+        <div className="text-center">
+            <Image 
+              src="/logo.png" 
+              alt="Agro Command Logo" 
+              width={256} 
+              height={256} 
+              className="mx-auto h-64 w-64"
+            />
+          
+          </div>
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
-          <CardTitle>Create Account</CardTitle>
+          <CardTitle>Criar Conta</CardTitle>
           <CardDescription>
-            Sign up for a new account to get started
+            Cadastre-se para criar uma nova conta
           </CardDescription>
         </CardHeader>
       <CardContent className="space-y-4">
@@ -110,7 +125,7 @@ export function SignUpForm() {
             <Input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Digite seu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -118,11 +133,11 @@ export function SignUpForm() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Senha</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Digite sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -130,11 +145,11 @@ export function SignUpForm() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="confirmPassword">Confirmar Senha</Label>
             <Input
               id="confirmPassword"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Confirme sua senha"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -143,7 +158,7 @@ export function SignUpForm() {
           
           <Button type="submit" className="w-full" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Sign Up with Email
+            Cadastrar com Email
           </Button>
         </form>
         
@@ -153,7 +168,7 @@ export function SignUpForm() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
+              Ou continue com
             </span>
           </div>
         </div>
@@ -166,10 +181,18 @@ export function SignUpForm() {
           disabled={loading}
         >
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Continue with Google
+          Continuar com Google
         </Button>
       </CardContent>
-    </Card>
+      </Card>
+      <div className="text-center">
+            <p className="text-sm text-muted-foreground">
+              Já tem uma conta?{' '}
+              <Link href="/login" className="font-medium text-primary hover:text-primary/80">
+                Entrar
+              </Link>
+            </p>
+          </div>
     </>
   )
 }

@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "App Boilerplate",
+  title: "Agro Command",
   description: "Modern Next.js boilerplate with Supabase auth, shadcn/ui, and TypeScript",
 };
 

@@ -10,7 +10,9 @@ import { GoogleOneTap } from '@/components/google-one-tap'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
-
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
@@ -18,6 +20,7 @@ export function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { signInWithEmail, signInWithGoogle } = useAuth()
+  const router = useRouter()
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,13 +31,14 @@ export function LoginForm() {
     
     if (error) {
       setError(error.message)
-      toast.error('Sign in failed', {
+      toast.error('Falha no login', {
         description: error.message
       })
     } else {
-      toast.success('Welcome back!', {
-        description: 'You have been signed in successfully.'
+      toast.success('Bem-vindo de volta!', {
+        description: 'Você entrou com sucesso.'
       })
+      router.push('/dashboard')
     }
     
     setLoading(false)
@@ -48,13 +52,14 @@ export function LoginForm() {
     
     if (error) {
       setError(error.message)
-      toast.error('Google sign in failed', {
+      toast.error('Falha no login com Google', {
         description: error.message
       })
     } else {
-      toast.success('Welcome!', {
-        description: 'Signed in with Google successfully.'
+      toast.success('Bem-vindo!', {
+        description: 'Login com Google realizado com sucesso.'
       })
+      router.push('/dashboard')
     }
     
     setLoading(false)
@@ -64,13 +69,24 @@ export function LoginForm() {
     <>
       <GoogleOneTap
         onSuccess={() => setError(null)}
-        onError={(err) => setError(err.message || 'Google sign-in failed')}
+        onError={(err) => setError(err.message || 'Falha no login com Google')}
       />
+      <div className="text-center">
+            <Image 
+              src="/logo.png" 
+              alt="Agro Command Logo" 
+              width={256} 
+              height={256} 
+              className="mx-auto h-64 w-64"
+            />
+          
+          </div>
       <Card className="w-full max-w-md mx-auto">
+      
         <CardHeader>
-          <CardTitle>Sign In</CardTitle>
+          <CardTitle>Entrar</CardTitle>
           <CardDescription>
-            Sign in to your account to continue
+            Entre na sua conta para continuar
           </CardDescription>
         </CardHeader>
       <CardContent className="space-y-4">
@@ -86,7 +102,7 @@ export function LoginForm() {
             <Input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Digite seu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -94,11 +110,11 @@ export function LoginForm() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Senha</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Digite sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -107,7 +123,7 @@ export function LoginForm() {
           
           <Button type="submit" className="w-full" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Sign In with Email
+            Entrar com Email
           </Button>
         </form>
         
@@ -117,7 +133,7 @@ export function LoginForm() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
+              Ou continue com
             </span>
           </div>
         </div>
@@ -130,10 +146,18 @@ export function LoginForm() {
           disabled={loading}
         >
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Continue with Google
+          Continuar com Google
         </Button>
       </CardContent>
-    </Card>
+      </Card>
+      <div className="text-center">
+            <p className="text-sm text-muted-foreground">
+              Não tem uma conta?{' '}
+              <Link href="/signup" className="font-medium text-primary hover:text-primary/80">
+                Cadastre-se
+              </Link>
+            </p>
+          </div>
     </>
   )
 }

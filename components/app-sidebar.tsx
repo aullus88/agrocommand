@@ -4,7 +4,6 @@ import * as React from "react"
 import {
   AlertTriangle,
   BarChart3,
-  Command,
   DollarSign,
   Factory,
   HelpCircle,
@@ -17,6 +16,7 @@ import {
   TrendingUp,
   Warehouse,
 } from "lucide-react"
+import Image from "next/image"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
@@ -189,12 +189,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+                <div className="text-sidebar-primary-foreground flex aspect-square size-14 items-center justify-center rounded-lg">
+                  <Image 
+                    src="/icon.png" 
+                    alt="Agro Command Logo" 
+                    width={128} 
+                    height={128} 
+                    className="size-14"
+                  />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">AgroCommand</span>
-                  <span className="truncate text-xs">Agricultural Platform</span>
+                  <span className="truncate font-medium">Agro Command</span>
+                  <span className="truncate text-xs">Plataforma Agrícola</span>
                 </div>
               </a>
             </SidebarMenuButton>

@@ -248,7 +248,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$sonner$2
 ;
 ;
 const metadata = {
-    title: "App Boilerplate",
+    title: "Agro Command",
     description: "Modern Next.js boilerplate with Supabase auth, shadcn/ui, and TypeScript"
 };
 const viewport = {
